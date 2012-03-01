@@ -1,2 +1,3 @@
-Computer modelling has been applied to such diverse fields as molecular biology, epidemiology, and economics. Our presentation will discuss how computer modelling can be applied to the study of history and reasons for doing so.
-We implemented a dynamic model of civilizations over time in which empires rise and fall due to endogenous forces. The basic assumptions of our model lead to complex emergent behaviour in which empires grow and decline. 
+Computer modelling has been applied to such diverse fields as molecular biology, epidemiology, and economics. Our presentation will discuss how computer modelling can be applied to the study of history and the reasons for doing so.
+
+We implemented a dynamic model of civilizations over time in which empires rise and fall due to endogenous forces. The basic assumptions of our model lead to complex emergent behaviour in which empires went through cycles of expansion, stablization, and collapse.
