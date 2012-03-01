@@ -31,7 +31,7 @@ delta = 0.1       # How fast asibiya decreases in heartland
 h = 0.8           # How fast power falls off as a relation of distance
 minAsa = 0.05     # Lowest asabiya allowed before a civilization is dissolved
 initialAsa = 0.5  # Initial asabiya value for cells in new empire
-timesteps = 20    # How long to run the model
+timesteps = 50    # How long to run the model
 
 ###
 ### Globals
@@ -302,10 +302,10 @@ for(timestep in 0:timesteps) {
   for(i in 1:len^2) {
     coords[i,] = c((i-1) %% len, floor((i-1)/len))
   }
-    
+  
   plot(grid, vertex.size=10, layout=coords, main = paste(avgAsa(1, grid), avgAsa(2, grid), avgAsa(3, grid)), vertex.label="", vertex.frame.color="gray", edge.color="white", vertex.shape="square")
   
   print(timestep)
 }
 
-ani.stop()
+ani.stop()f
