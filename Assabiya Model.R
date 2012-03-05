@@ -316,3 +316,10 @@ for(timestep in 0:timesteps) {
 }
 
 ani.stop()
+
+
+plot(empireSize[,2], col = "blue")
+points(empireSize[,3], col = "green")
+points(empireSize[,4], col = "purple")
+points(empireSize[,5], col = "black")
+points(empireSize[,6], col = "pink")
