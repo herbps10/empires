@@ -40,6 +40,7 @@ timesteps = 50    # How long to run the model
 highestEmpire = 0
 capitols = numeric(0)
 frontierCells = numeric(0)
+empireSize <- array(0, c(timesteps,6))
 
 ###
 ### FUNCTIONS
@@ -286,6 +287,12 @@ for(timestep in 0:timesteps) {
   V(grid)[V(grid)$empire %% 6 == 5]$color = "pink"
   V(grid)[V(grid)$empire==0]$color = NA
 
+  empireSize[timestep,1] = length(V(grid)[V(grid)$empire %% 6 == 0])
+  empireSize[timestep,2] = length(V(grid)[V(grid)$empire %% 6 == 1])
+  empireSize[timestep,3] = length(V(grid)[V(grid)$empire %% 6 == 2])
+  empireSize[timestep,4] = length(V(grid)[V(grid)$empire %% 6 == 3])
+  empireSize[timestep,5] = length(V(grid)[V(grid)$empire %% 6 == 4])
+  empireSize[timestep,6] = length(V(grid)[V(grid)$empire %% 6 == 5])
   
   #
   # Manually place each vertex for plotting
@@ -308,4 +315,4 @@ for(timestep in 0:timesteps) {
   print(timestep)
 }
 
-ani.stop()f
+ani.stop()
