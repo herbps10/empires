@@ -19,6 +19,7 @@
 
 library(igraph)
 library(animation)
+library(matrix)
 
 ###
 ### Constants
@@ -28,10 +29,11 @@ len = 21          # Dimension of the grid
 deltaPower = 0.05 # Difference in power necessary to invade
 r0 = 0.1          # How fast asibiya grows at border
 delta = 0.1       # How fast asibiya decreases in heartland
-h = 0.8           # How fast power falls off as a relation of distance
+h = 0.8           # How fast power falls off as a relation of distance (1: no loss, 0: all lost)
 minAsa = 0.05     # Lowest asabiya allowed before a civilization is dissolved
 initialAsa = 0.5  # Initial asabiya value for cells in new empire
-timesteps = 50    # How long to run the model
+numInitialEmpires = 10 # Number of empires to start with
+timesteps = 100    # How long to run the model
 
 ###
 ### Globals
@@ -174,13 +176,15 @@ V(grid)$empire = 0
 V(grid)$asa = 0
 
 # Stat with two randomly placed empires
-grid = randomPlaceEmpire(2, grid)
-grid = randomPlaceEmpire(2, grid)
+for(i in 1:numInitialEmpires) {
+  grid = randomPlaceEmpire(1, grid)
+  grid = randomPlaceEmpire(1, grid)
+}
 
   
 # Keep track of size and asabiya data for civilizations
-sizeData = matrix(nrow = timesteps, ncol = 10)
-asaData = matrix(nrow = timesteps, ncol = 10)
+sizeData = matrix(0, nrow = timesteps, ncol = 100)
+asaData = matrix(0, nrow = timesteps, ncol = 100)
 
 
   
@@ -194,7 +198,7 @@ asaData = matrix(nrow = timesteps, ncol = 10)
 # 3. Dissolve any empires with average asabiya less than a threshold
 #
   
-ani.start()
+#ani.start()
 
 for(timestep in 0:timesteps) {
   
@@ -271,8 +275,8 @@ for(timestep in 0:timesteps) {
   #
   # Each timestep, have a random chance that new empire will start.
   #
-  if(sample(0:100, 1) < 30) {
-    grid = randomPlaceEmpire(1, grid)
+  if(sample(0:100, 1) < 5) {
+    #grid = randomPlaceEmpire(1, grid)
   }
   
   
@@ -287,12 +291,12 @@ for(timestep in 0:timesteps) {
   V(grid)[V(grid)$empire %% 6 == 5]$color = "pink"
   V(grid)[V(grid)$empire==0]$color = NA
 
-  empireSize[timestep,1] = length(V(grid)[V(grid)$empire %% 6 == 0])
-  empireSize[timestep,2] = length(V(grid)[V(grid)$empire %% 6 == 1])
-  empireSize[timestep,3] = length(V(grid)[V(grid)$empire %% 6 == 2])
-  empireSize[timestep,4] = length(V(grid)[V(grid)$empire %% 6 == 3])
-  empireSize[timestep,5] = length(V(grid)[V(grid)$empire %% 6 == 4])
-  empireSize[timestep,6] = length(V(grid)[V(grid)$empire %% 6 == 5])
+  #empireSize[timestep,1] = length(V(grid)[V(grid)$empire %% 6 == 0])
+  #empireSize[timestep,2] = length(V(grid)[V(grid)$empire %% 6 == 1])
+  #empireSize[timestep,3] = length(V(grid)[V(grid)$empire %% 6 == 2])
+  #empireSize[timestep,4] = length(V(grid)[V(grid)$empire %% 6 == 3])
+  #empireSize[timestep,5] = length(V(grid)[V(grid)$empire %% 6 == 4])
+  #empireSize[timestep,6] = length(V(grid)[V(grid)$empire %% 6 == 5])
   
   #
   # Manually place each vertex for plotting
@@ -305,21 +309,34 @@ for(timestep in 0:timesteps) {
   # The code below generates such a matrix and places each vertex
   # on a grid layout.
   #
-  coords = matrix(nrow=len^2, ncol=2)
-  for(i in 1:len^2) {
-    coords[i,] = c((i-1) %% len, floor((i-1)/len))
-  }
+  #coords = matrix(nrow=len^2, ncol=2)
+  #for(i in 1:len^2) {
+  #  coords[i,] = c((i-1) %% len, floor((i-1)/len))
+  #}
   
-  plot(grid, vertex.size=10, layout=coords, main = paste(avgAsa(1, grid), avgAsa(2, grid), avgAsa(3, grid)), vertex.label="", vertex.frame.color="gray", edge.color="white", vertex.shape="square")
+  #plot(grid, vertex.size=10, layout=coords, main = paste(avgAsa(1, grid), avgAsa(2, grid), avgAsa(3, grid)), vertex.label="", vertex.frame.color="gray", edge.color="white", vertex.shape="square")
   
   print(timestep)
 }
 
-ani.stop()
+#ani.stop()
 
+empire_lengths = c()
 
-plot(empireSize[,2], col = "blue")
-points(empireSize[,3], col = "green")
-points(empireSize[,4], col = "purple")
-points(empireSize[,5], col = "black")
-points(empireSize[,6], col = "pink")
+colors = c("blue", "red", "green", "purple", "black")
+plot(sizeData[,1], col = "blue", type="l", ylim=c(0, 30), main="Empire Size vs. Time", ylab="Empire Size", xlab="Time")
+for(i in 2:100) {
+  if(sum(sizeData[,i]) > 0) {
+    #lines(sizeData[,i], ylim=c(0, 30), col=colors[i %% length(colors)])
+    lines(sizeData[,i], ylim=c(0, 30), col="black")
+    
+    empire_lengths = cbind(empire_lengths, sum(sizeData[,i] != 0))
+  }
+}
+
+plot(asaData[,1], type='l', ylim=c(0, 1), main="Empire Assabiya vs. Time", xlab="Time", ylab="Assabiya")
+for(i in 2:100) {
+  if(sum(asaData[,i]) > 0) {
+    lines(asaData[,i], ylim=c(0, 1))
+  }
+}

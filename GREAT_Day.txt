@@ -1,4 +1,5 @@
 Computer modeling has been applied to such diverse fields as molecular biology, epidemiology, and economics. Our presentation will discuss how computer modeling can be applied to the study of history and the reasons for doing so.
 
-We implemented a dynamic model of civilizations over time in which empires rise and fall due to endogenous forces. The basic assumptions of our model lead to complex emergent behavior in which empires went through cycles of expansion, stabilization, and collapse.
-git
+We implemented a dynamic model of civilizations over time in which empires rise and fall due to endogenous forces. Each empire has varying levels of assabiya (the ability of a group to perform collective action) that increases near borders and decreases in the heart of the empire. The ability of an empire to expand is partly determined by its average assabiya over the area of the civilization. This method of modelling lead to complex emergent behavior in which empires went through cycles of expansion, stabilization, and collapse.
+
+We compared such an approach to modelling civilization growth with an alternative method based on population growth. This approach, based on the theory of historical secular cycles, models the behaviour of an empire based on the relationship between population size and the carrying capacity of the environment. Modelling empires based on population growth also lead to emergent cycles similar to that of the model based on a theory of collective action.
