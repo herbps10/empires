@@ -1,0 +1,223 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Itemize
+We need someone to research conceptual uses of models.
+ What are they good for? What are they not good for?
+\end_layout
+
+\begin_layout Itemize
+Implement and understand Turchin's demographic structural math model.
+ Ways to combine with asabiya model?
+\end_layout
+
+\begin_layout Itemize
+Why would we want to apply models to history? This should be more abstract,
+ theoretical.
+ Then we move into our models.
+\end_layout
+
+\begin_layout Itemize
+Notes from Turchin Introduction
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Theory in social science terms: qualitative
+\end_layout
+
+\begin_layout Itemize
+in order to be a mature discipline, need mathematical theory
+\end_layout
+
+\begin_layout Itemize
+Other fields which developed mathematical theories recently: synthetic theory
+ of evolution; population ecology
+\end_layout
+
+\begin_layout Itemize
+simple approaches inspired by physics will fail; too many interweaving parts;
+ exogenous forces
+\end_layout
+
+\begin_layout Itemize
+physicists have lots of data, and can gather data.
+ Very untrue for historical sociologists.
+\end_layout
+
+\begin_layout Itemize
+CHAOS
+\end_layout
+
+\begin_layout Itemize
+dynamics: change over time
+\end_layout
+
+\begin_layout Itemize
+dynamic systems approach: break up larger thing into smaller pieces that
+ interact with each other
+\end_layout
+
+\begin_layout Itemize
+imperial dynamics: territory, number of people change over time
+\end_layout
+
+\begin_layout Itemize
+all models simplify reality.
+ Artificiality.
+ Many models are wrong (have wrong assumptions), but still useful.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Collective Solidarity Notes
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+the best organized group usually wins, and that means the group with the
+ most internal solidarity
+\begin_inset Quotes erd
+\end_inset
+
+ (Collins 1992:26) page 37 from Turchin
+\end_layout
+
+\begin_layout Itemize
+Ibn Khaldun: Asabiyagoo
+\end_layout
+
+\begin_layout Itemize
+small scale societies lead to increased asabiya because collective action
+ is necessary for survival
+\end_layout
+
+\begin_layout Itemize
+empires lead to decreased asabiya because of luxuries, intraelite competition
+\end_layout
+
+\begin_layout Itemize
+McNeill 1963: 
+\begin_inset Quotes eld
+\end_inset
+
+a long line of lords marcher who created empires by successfully exploiting
+ a strategic position on the frontier between civilization and barbarism.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Durkheim's Mechanical solidarity.
+ Disregard organic since we're looking at agrarian empires, not industrial.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Presentation Outline
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+What is a model?
+\end_layout
+
+\begin_layout Itemize
+Why model?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+http://jasss.soc.surrey.ac.uk/11/4/12.html
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Chaos, nonlinearity
+\end_layout
+
+\begin_layout Itemize
+Territory Expansion Models
+\end_layout
+
+\begin_layout Itemize
+Asabiya Model
+\end_layout
+
+\begin_layout Itemize
+Demographic Structural model
+\end_layout
+
+\begin_layout Itemize
+Combined model?
+\end_layout
+
+\end_deeper
+\end_body
+\end_document
