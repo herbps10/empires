@@ -26,14 +26,14 @@ library(matrix)
 ###
 
 len = 21          # Dimension of the grid
-deltaPower = 0.05 # Difference in power necessary to invade
+deltaPower = 0.0 # Difference in power necessary to invade
 r0 = 0.1          # How fast asibiya grows at border
 delta = 0.1       # How fast asibiya decreases in heartland
 h = 0.8           # How fast power falls off as a relation of distance (1: no loss, 0: all lost)
 minAsa = 0.05     # Lowest asabiya allowed before a civilization is dissolved
-initialAsa = 0.5  # Initial asabiya value for cells in new empire
-numInitialEmpires = 10 # Number of empires to start with
-timesteps = 100    # How long to run the model
+initialAsa = 0.1  # Initial asabiya value for cells in new empire
+numInitialEmpires = 3 # Number of empires to start with
+timesteps = 50    # How long to run the model
 
 ###
 ### Globals
@@ -198,7 +198,7 @@ asaData = matrix(0, nrow = timesteps, ncol = 100)
 # 3. Dissolve any empires with average asabiya less than a threshold
 #
   
-#ani.start()
+ani.start()
 
 for(timestep in 0:timesteps) {
   
@@ -309,17 +309,17 @@ for(timestep in 0:timesteps) {
   # The code below generates such a matrix and places each vertex
   # on a grid layout.
   #
-  #coords = matrix(nrow=len^2, ncol=2)
-  #for(i in 1:len^2) {
-  #  coords[i,] = c((i-1) %% len, floor((i-1)/len))
-  #}
+  coords = matrix(nrow=len^2, ncol=2)
+  for(i in 1:len^2) {
+    coords[i,] = c((i-1) %% len, floor((i-1)/len))
+  }
   
-  #plot(grid, vertex.size=10, layout=coords, main = paste(avgAsa(1, grid), avgAsa(2, grid), avgAsa(3, grid)), vertex.label="", vertex.frame.color="gray", edge.color="white", vertex.shape="square")
+  plot(grid, vertex.size=10, layout=coords, main = paste(avgAsa(1, grid), avgAsa(2, grid), avgAsa(3, grid)), vertex.label="", vertex.frame.color="gray", edge.color="white", vertex.shape="square")
   
   print(timestep)
 }
 
-#ani.stop()
+ani.stop()
 
 empire_lengths = c()
 
@@ -327,8 +327,8 @@ colors = c("blue", "red", "green", "purple", "black")
 plot(sizeData[,1], col = "blue", type="l", ylim=c(0, 30), main="Empire Size vs. Time", ylab="Empire Size", xlab="Time")
 for(i in 2:100) {
   if(sum(sizeData[,i]) > 0) {
-    #lines(sizeData[,i], ylim=c(0, 30), col=colors[i %% length(colors)])
-    lines(sizeData[,i], ylim=c(0, 30), col="black")
+    lines(sizeData[,i], ylim=c(0, 30), col=colors[i %% length(colors)])
+    #lines(sizeData[,i], ylim=c(0, 30), col="black")
     
     empire_lengths = cbind(empire_lengths, sum(sizeData[,i] != 0))
   }
