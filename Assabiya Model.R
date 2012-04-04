@@ -26,8 +26,8 @@ library(matrix)
 ###
 
 len = 21          # Dimension of the grid
-deltaPower = 0.0 # Difference in power necessary to invade
-r0 = 0.1          # How fast asibiya grows at border
+deltaPower = 0.05 # Difference in power necessary to invade
+r0 = 1          # How fast asibiya grows at border
 delta = 0.1       # How fast asibiya decreases in heartland
 h = 0.8           # How fast power falls off as a relation of distance (1: no loss, 0: all lost)
 minAsa = 0.05     # Lowest asabiya allowed before a civilization is dissolved
@@ -35,18 +35,35 @@ initialAsa = 0.1  # Initial asabiya value for cells in new empire
 numInitialEmpires = 3 # Number of empires to start with
 timesteps = 50    # How long to run the model
 
+r = .02          # population growth rate
+beta = .25       # State power depreciation rate
+
+S_not = 10        # some parameter
+c_param = 3       # does something
+
+ePopulationDensity = 1
+eStatePower = 0.01
+
 ###
 ### Globals
 ###
 
 highestEmpire = 0
 capitols = numeric(0)
+empirePopulation = matrix(nrow = 0, ncol=timesteps)
+empireStatePower = matrix(nrow = 0, ncol=timesteps)
 frontierCells = numeric(0)
 empireSize <- array(0, c(timesteps,6))
 
 ###
 ### FUNCTIONS
 ###
+
+k <- function(S) {
+  result = 1 + c_param * (S / (S_not + S))
+  
+  return(result)
+}
 
 #
 # Calculates a cell's id given x, y coordinates
@@ -200,11 +217,24 @@ asaData = matrix(0, nrow = timesteps, ncol = 100)
   
 ani.start()
 
-for(timestep in 0:timesteps) {
-  
+for(timestep in 2:timesteps) {
   for(empire in unique(V(grid)$empire)) {
     sizeData[timestep,empire] = getSize(empire, grid)
     asaData[timestep, empire] = avgAsa(empire, grid)
+    
+    while(nrow(empirePopulation) < empire + 1) {
+      empirePopulation = rbind(empirePopulation, 0.001)
+      empireStatePower = rbind(empireStatePower, 0.001)
+    }
+    
+    N = empirePopulation[empire + 1, timestep -1]
+    S = empireStatePower[empire + 1, timestep -1]
+    
+    # Update empire population
+    empirePopulation[empire + 1, timestep] =  empirePopulation[empire + 1, timestep -1] + r * N * (1 - (N/k(S)))
+    
+    # Update state power
+    empireStatePower[empire + 1, timestep] = empireStatePower[empire + 1, timestep -1] + N * (1 - (N/k(S))) - beta * N
   }
   
   frontierCells = numeric(0)
@@ -212,6 +242,8 @@ for(timestep in 0:timesteps) {
   # Loops through and updates asibaya value for each cell that is part of an empire
   for(i in V(grid)[V(grid)$empire != 0]) {
     currAsa = V(grid)[i]$asa
+    currAsa = V(grid)[i]$asa - ePopulationDensity * (empirePopulation[V(grid)[i]$empire + 1, timestep] / getSize(V(grid)[i]$empire, grid))
+    currAsa = V(grid)[i]$asa + eStatePower * (empireStatePower[V(grid)[i]$empire + 1, timestep])
     
     # Asibaya is increased for border cells
     if (isBorder(i, grid)) {
@@ -235,8 +267,13 @@ for(timestep in 0:timesteps) {
   # Loop through border cells in random order. 
   # For each border cell, check neighbors in a random order. Invade the first one that has a lower power value.
   #
-    
+  empires_invaded = rep(FALSE, highestEmpire)
   for(i in sample(frontierCells, length(frontierCells))) {
+    
+    if(empires_invaded[V(grid)[i]$empire] == TRUE) {
+      next
+    }
+    
     neighbors = neighborhood(grid, 1, i)[[1]]
     
     # Randomly shuffle so we don't bias our results by going through the neighbors in the same order every time
@@ -250,7 +287,7 @@ for(timestep in 0:timesteps) {
       
       if (V(grid)[i]$empire != V(grid)[j]$empire && getPower(i, grid)-getPower(j, grid) > deltaPower) {
         V(grid)[j]$empire = V(grid)[i]$empire
-        break
+        empires_invaded[V(grid)[i]$empire] = TRUE
       }
         
     }
@@ -324,10 +361,10 @@ ani.stop()
 empire_lengths = c()
 
 colors = c("blue", "red", "green", "purple", "black")
-plot(sizeData[,1], col = "blue", type="l", ylim=c(0, 30), main="Empire Size vs. Time", ylab="Empire Size", xlab="Time")
+plot(sizeData[,1], col = "blue", type="l", ylim=c(0, 100), main="Empire Size vs. Time", ylab="Empire Size", xlab="Time")
 for(i in 2:100) {
   if(sum(sizeData[,i]) > 0) {
-    lines(sizeData[,i], ylim=c(0, 30), col=colors[i %% length(colors)])
+    lines(sizeData[,i], ylim=c(0, 100), col=colors[i %% length(colors)])
     #lines(sizeData[,i], ylim=c(0, 30), col="black")
     
     empire_lengths = cbind(empire_lengths, sum(sizeData[,i] != 0))
